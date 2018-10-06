@@ -90,3 +90,7 @@ class html {
         return $table;
     }
 }
+
+class utils {
+
+}
