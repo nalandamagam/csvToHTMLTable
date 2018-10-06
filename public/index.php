@@ -75,17 +75,35 @@ class html {
         return $table;
     }
 
-    public static function returnLoopString($array, $table){
-        $table.='<tr>';
-        foreach($array as $value){
-            $table .= $value;
-        }
-        $table.= '</tr>';
-        return $table;
-    }
 }
 
 class utils {
+
+    public static function forEachLoop($array, $arrayType, $isHeadersNeeded){
+        $result = '';
+        $tableRowTagNeeded = true;
+        foreach ($array as $value){
+            switch ($arrayType) {
+                case "records":
+                    $value = (array) $value;
+                    if($isHeadersNeeded){
+                        $result .= self::forEachLoop(array_keys($value), 'row' , $isHeadersNeeded);
+                        $isHeadersNeeded = false;
+                    }
+                    $result .= self::forEachLoop(array_values($value), 'row', $isHeadersNeeded);
+                    $tableRowTagNeeded= false;
+                    break;
+                case "row":
+                    $result .= self::addTableTag($value, $isHeadersNeeded);
+                    break;
+            }
+        }
+        if($tableRowTagNeeded) {
+            return self::addTableRow($result);
+        } else {
+            return $result;
+        }
+    }
 
     public static function addTableRow($tableRow){
         return '<tr>' . $tableRow . '</tr>';
