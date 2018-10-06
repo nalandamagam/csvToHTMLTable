@@ -16,6 +16,27 @@ class main {
 
 class csv {
     public static function getCSVRecords($csvFileName){
+        $csvFile = fopen($csvFileName, "r");
+        $columnNames = array();
+        $isHeaderRecord = true;
+
+        while(!feof($csvFile)){
+            $row = fgetcsv($csvFile);
+            if($isHeaderRecord){
+                $columnNames = $row;
+                $isHeaderRecord = false;
+            } else {
+                $records[] = recordFactory::createRecord($columnNames, $row);
+            }
+        }
+
+        fclose($csvFile);
+        return $records;
+    }
+}
+
+class recordFactory {
+    public static function createRecord(Array $columnNames = null, $cellValues = null){
 
     }
 }
