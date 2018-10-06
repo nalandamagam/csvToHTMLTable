@@ -87,6 +87,18 @@ class html {
 
 class utils {
 
+    public static function addTableRow($tableRow){
+        return '<tr>' . $tableRow . '</tr>';
+    }
+
+    public static function addTableTag($value, $isHeadersNeeded){
+        if($isHeadersNeeded){
+            return '<th>' . $value . '</th>';
+        } else {
+            return '<td>' . $value . '</td>';
+        }
+    }
+
     public static function returnHTMLHeader(){
         $table = '<!DOCTYPE html><html lang="en"><head><link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
