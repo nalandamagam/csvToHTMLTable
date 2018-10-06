@@ -11,6 +11,8 @@ main::start("csvTestFile.csv");
 class main {
     public static function start($csvFileName){
         $records = csv::getCSVRecords($csvFileName);
+        $table = html::generateHTMLTable($records);
+        echo $table;
     }
 }
 
@@ -55,5 +57,11 @@ class record {
         $key = '<th>'. $key . '</th>';
         $value = '<td>'. $value . '</td>';
         $this->{$key} = $value;
+    }
+}
+
+class html {
+    public static function generateHTMLTable($records) {
+
     }
 }
