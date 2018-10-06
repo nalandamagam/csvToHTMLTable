@@ -40,28 +40,19 @@ class csv {
 class recordFactory {
     public static function createRecord(Array $columnNames = null, $cellValues = null){
         $record = new record($columnNames, $cellValues);
-        return $record;
+        return $record->returnRecord();
     }
 }
 
 class record {
+    private $record = array();
     public function __construct(Array $columnNames = null, $cellValues = null) {
         $record = array_combine($columnNames, $cellValues);
-
-        foreach ($record as $key => $value){
-            $this -> createProperty($key, $value);
-        }
+        $this->record = $record;
     }
 
-    public function createProperty($key = 'key', $value = 'value') {
-        $key = '<th>'. $key . '</th>';
-        $value = '<td>'. $value . '</td>';
-        $this->{$key} = $value;
-    }
-
-    public function returnRecordAsArray(){
-        $array = (array) $this;
-        return $array;
+    public function returnRecord(){
+        return $this->record;
     }
 }
 
