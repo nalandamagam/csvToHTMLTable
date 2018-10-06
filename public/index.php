@@ -10,6 +10,12 @@ main::start("csvTestFile.csv");
 
 class main {
     public static function start($csvFileName){
+        $records = csv::getCSVRecords($csvFileName);
+    }
+}
+
+class csv {
+    public static function getCSVRecords($csvFileName){
 
     }
 }
