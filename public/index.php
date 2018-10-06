@@ -58,20 +58,8 @@ class record {
 
 class html {
     public static function generateHTMLTable($records) {
-        $isFirstRecord = true;
-        $table = self::returnHTMLHeader();
-
-        foreach ($records as $record) {
-            $array = $record->returnRecordAsArray();
-            if($isFirstRecord) {
-                $fields = array_keys($array);
-                $table = self::returnLoopString($fields, $table);
-                $isFirstRecord = false;
-            }
-            $values = array_values($array);
-            $table = self::returnLoopString($values, $table);
-        }
-        $table.='</table></body></html>';
+        $table = utils::returnHTMLHeader();
+        $table .= utils::forEachLoop($records, 'records', true) . '</table></body></html>';
         return $table;
     }
 
