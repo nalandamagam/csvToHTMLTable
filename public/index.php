@@ -37,6 +37,13 @@ class csv {
 
 class recordFactory {
     public static function createRecord(Array $columnNames = null, $cellValues = null){
+        $record = new record($columnNames, $cellValues);
+        return $record;
+    }
+}
+
+class record {
+    public function __construct(Array $columnNames = null, $cellValues = null) {
 
     }
 }
