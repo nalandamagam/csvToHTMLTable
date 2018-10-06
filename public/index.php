@@ -68,29 +68,34 @@ class record {
 class html {
     public static function generateHTMLTable($records) {
         $isFirstRecord = true;
-        $table = '<!DOCTYPE html><html lang="en"><head><link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-                    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script></head><body><table class="table table-bordered table-striped">';
+        $table = self::returnHTMLHeader();
 
         foreach ($records as $record) {
             $array = $record->returnRecordAsArray();
             if($isFirstRecord) {
                 $fields = array_keys($array);
-                $table.='<tr>';
-                foreach($fields as $value){
-                    $table .= $value;
-                }
-                $table.= '</tr>';
+                $table = self::returnLoopString($fields, $table);
                 $isFirstRecord = false;
             }
             $values = array_values($array);
-            $table.='<tr>';
-            foreach($values as $value){
-                $table .= $value;
-            }
-            $table.= '</tr>';
+            $table = self::returnLoopString($values, $table);
         }
         $table.='</table></body></html>';
+        return $table;
+    }
+
+    public static function returnHTMLHeader(){
+        $table = '<!DOCTYPE html><html lang="en"><head><link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+                    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script></head><body><table class="table table-bordered table-striped">';
+        return $table;
+    }
+    public static function returnLoopString($array, $table){
+        $table.='<tr>';
+        foreach($array as $value){
+            $table .= $value;
+        }
+        $table.= '</tr>';
         return $table;
     }
 }
